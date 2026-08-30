@@ -9,7 +9,8 @@ import {
   Volume2,
   VolumeX,
   Sliders,
-  Piano,
+  Maximize,
+  Minimize,
 } from 'lucide-react';
 
 export type AppMode = 'dictionary' | 'flashcard' | 'progression' | 'circle';
@@ -21,6 +22,8 @@ interface NavbarProps {
   onOpenSettings: () => void;
   isMuted: boolean;
   onToggleMute: () => void;
+  isFullscreen: boolean;
+  onToggleFullscreen: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -30,6 +33,8 @@ export const Navbar: React.FC<NavbarProps> = ({
   onOpenSettings,
   isMuted,
   onToggleMute,
+  isFullscreen,
+  onToggleFullscreen,
 }) => {
   return (
     <header className="sticky top-0 z-40 w-full bg-[#0A0A0B]/95 backdrop-blur-md border-b border-white/10 shadow-2xl">
@@ -115,6 +120,24 @@ export const Navbar: React.FC<NavbarProps> = ({
 
         {/* Right: Quick Controls */}
         <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+          {/* Fullscreen Toggle */}
+          <button
+            id="toggle-fullscreen-btn"
+            onClick={onToggleFullscreen}
+            className={`p-2 rounded-xl border transition-all cursor-pointer ${
+              isFullscreen
+                ? 'bg-red-950/50 border-red-500/40 text-red-300 shadow-[0_0_10px_rgba(239,68,68,0.25)]'
+                : 'bg-[#151518] border-white/10 text-white/70 hover:text-white hover:border-white/20'
+            }`}
+            title={isFullscreen ? '全画面表示を解除 (Esc)' : '全画面表示にする'}
+          >
+            {isFullscreen ? (
+              <Minimize className="w-4 h-4 text-red-400" />
+            ) : (
+              <Maximize className="w-4 h-4" />
+            )}
+          </button>
+
           {/* Quick Sound Mute Toggle */}
           <button
             id="toggle-sound-mute-btn"

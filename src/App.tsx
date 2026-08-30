@@ -8,7 +8,10 @@ import { FlashcardQuizView } from './components/FlashcardQuizView';
 import { ProgressionPlayAlongView } from './components/ProgressionPlayAlongView';
 import { CircleOfFifthsView } from './components/CircleOfFifthsView';
 import { MidiSettingsModal } from './components/MidiSettingsModal';
+import { FullscreenPromptModal } from './components/FullscreenPromptModal';
 import { ClefType } from './components/StaffNotation';
+
+const DONT_SHOW_FULLSCREEN_KEY = 'khordgraph_dont_show_fullscreen_prompt';
 
 export default function App() {
   const [currentMode, setCurrentMode] = useState<AppMode>('dictionary');
@@ -23,6 +26,35 @@ export default function App() {
   const [volume, setVolume] = useState<number>(0.8);
   const [isMuted, setIsMuted] = useState<boolean>(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState<boolean>(false);
+  const [isFullscreen, setIsFullscreen] = useState<boolean>(false);
+  const [isFullscreenPromptOpen, setIsFullscreenPromptOpen] = useState<boolean>(false);
+  const [dontShowAgain, setDontShowAgain] = useState<boolean>(false);
+
+  // Check fullscreen capability and check if prompt should be shown on initial mount
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      setIsFullscreen(!!document.fullscreenElement);
+    };
+
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+
+    // Initial check: if not in fullscreen and not opted out, show prompt
+    const savedDontShow = localStorage.getItem(DONT_SHOW_FULLSCREEN_KEY) === 'true';
+    if (!document.fullscreenElement && !savedDontShow) {
+      // Small timeout to allow smooth entry render
+      const timer = setTimeout(() => {
+        setIsFullscreenPromptOpen(true);
+      }, 500);
+      return () => {
+        clearTimeout(timer);
+        document.removeEventListener('fullscreenchange', handleFullscreenChange);
+      };
+    }
+
+    return () => {
+      document.removeEventListener('fullscreenchange', handleFullscreenChange);
+    };
+  }, []);
 
   // Subscribe to MIDI Service updates
   useEffect(() => {
@@ -49,6 +81,37 @@ export default function App() {
     audioSynth.setMuted(next);
   };
 
+  const handleToggleFullscreen = async () => {
+    try {
+      if (!document.fullscreenElement) {
+        if (document.documentElement.requestFullscreen) {
+          await document.documentElement.requestFullscreen();
+        }
+      } else {
+        if (document.exitFullscreen) {
+          await document.exitFullscreen();
+        }
+      }
+    } catch (err) {
+      console.warn('Fullscreen request could not be completed:', err);
+    }
+  };
+
+  const handleEnterFullscreenFromModal = async () => {
+    if (dontShowAgain) {
+      localStorage.setItem(DONT_SHOW_FULLSCREEN_KEY, 'true');
+    }
+    setIsFullscreenPromptOpen(false);
+    await handleToggleFullscreen();
+  };
+
+  const handleContinueNormalFromModal = () => {
+    if (dontShowAgain) {
+      localStorage.setItem(DONT_SHOW_FULLSCREEN_KEY, 'true');
+    }
+    setIsFullscreenPromptOpen(false);
+  };
+
   return (
     <div className="h-screen w-screen overflow-hidden bg-[#0A0A0B] text-white flex flex-col antialiased select-none selection:bg-red-600 selection:text-white">
       {/* Top Header Navbar (flex-none) */}
@@ -59,6 +122,8 @@ export default function App() {
         onOpenSettings={() => setIsSettingsOpen(true)}
         isMuted={isMuted}
         onToggleMute={handleToggleMute}
+        isFullscreen={isFullscreen}
+        onToggleFullscreen={handleToggleFullscreen}
       />
 
       {/* Main Workspace Viewport */}
@@ -123,6 +188,15 @@ export default function App() {
         setVolume={setVolume}
         isMuted={isMuted}
         setIsMuted={setIsMuted}
+      />
+
+      {/* Initial Fullscreen Recommendation Modal */}
+      <FullscreenPromptModal
+        isOpen={isFullscreenPromptOpen}
+        onEnterFullscreen={handleEnterFullscreenFromModal}
+        onContinueNormal={handleContinueNormalFromModal}
+        dontShowAgain={dontShowAgain}
+        onToggleDontShowAgain={setDontShowAgain}
       />
 
       {/* Footer Status Bar (flex-none) */}

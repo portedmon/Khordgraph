@@ -399,11 +399,11 @@ export const ProgressionPlayAlongView: React.FC<ProgressionPlayAlongViewProps> =
         </div>
 
         {/* Right: Staff Notation */}
-        <div className="lg:col-span-6 flex flex-col justify-center min-h-[140px]">
+        <div className="lg:col-span-6 flex flex-col justify-center min-h-[160px] md:min-h-[200px]">
           <StaffNotation
             targetChord={activeStepChord}
             activeMidiNotes={activeMidiNotes}
-            compact={true}
+            compact={false}
             clef={clef}
             onClefChange={onClefChange}
           />
@@ -416,7 +416,7 @@ export const ProgressionPlayAlongView: React.FC<ProgressionPlayAlongViewProps> =
           targetChord={activeStepChord}
           activeMidiNotes={activeMidiNotes}
           showGuideHints={true}
-          compact={true}
+          compact={false}
           clef={clef}
         />
       </div>

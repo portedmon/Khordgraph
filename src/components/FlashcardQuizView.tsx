@@ -280,11 +280,11 @@ export const FlashcardQuizView: React.FC<FlashcardQuizViewProps> = ({
         </div>
 
         {/* Right: Staff Notation */}
-        <div className="lg:col-span-7 flex flex-col justify-center min-h-[140px]">
+        <div className="lg:col-span-7 flex flex-col justify-center min-h-[160px] md:min-h-[200px]">
           <StaffNotation
             targetChord={currentChord}
             activeMidiNotes={activeMidiNotes}
-            compact={true}
+            compact={false}
             clef={clef}
             onClefChange={onClefChange}
           />
@@ -297,7 +297,7 @@ export const FlashcardQuizView: React.FC<FlashcardQuizViewProps> = ({
           targetChord={currentChord}
           activeMidiNotes={activeMidiNotes}
           showGuideHints={showGuide}
-          compact={true}
+          compact={false}
           clef={clef}
         />
       </div>

@@ -143,15 +143,15 @@ export const StaffNotation: React.FC<StaffNotationProps> = ({
   return (
     <div
       className={`w-full bg-[#151518] border border-white/5 rounded-2xl shadow-xl backdrop-blur select-none flex flex-col justify-between ${
-        compact ? 'p-3' : 'p-4 md:p-5'
+        compact ? 'p-2.5 sm:p-3' : 'p-3.5 sm:p-4 md:p-5'
       }`}
     >
       {/* Header Bar */}
-      <div className="flex items-center justify-between mb-2">
-        <div className="flex items-center gap-3">
-          <div className="flex items-center gap-2">
+      <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
+        <div className="flex items-center gap-2 sm:gap-3">
+          <div className="flex items-center gap-1.5 sm:gap-2">
             <span className="inline-block w-2 h-2 rounded-full bg-red-500 animate-pulse shadow-[0_0_6px_rgba(239,68,68,0.8)]"></span>
-            <h3 className="text-[10px] uppercase tracking-widest text-white/50 font-bold font-mono">
+            <h3 className="text-[10px] sm:text-[11px] uppercase tracking-widest text-white/60 font-bold font-mono">
               五線譜リアルタイム対照 (Staff Notation)
             </h3>
           </div>
@@ -161,33 +161,33 @@ export const StaffNotation: React.FC<StaffNotationProps> = ({
             <button
               id="clef-treble-btn"
               onClick={() => handleSetClef('treble')}
-              className={`px-2 py-0.5 rounded-md text-[10px] font-bold transition-all cursor-pointer flex items-center gap-1 ${
+              className={`px-2 py-0.5 rounded-md text-[10px] sm:text-xs font-bold transition-all cursor-pointer flex items-center gap-1 ${
                 currentClef === 'treble'
                   ? 'bg-red-600 text-white shadow-[0_0_8px_rgba(239,68,68,0.5)]'
                   : 'text-white/40 hover:text-white'
               }`}
               title="ト音記号 (Treble Clef / G Clef)"
             >
-              <span className="text-xs">𝄞</span>
+              <span className="text-xs sm:text-sm">𝄞</span>
               <span>ト音記号</span>
             </button>
             <button
               id="clef-bass-btn"
               onClick={() => handleSetClef('bass')}
-              className={`px-2 py-0.5 rounded-md text-[10px] font-bold transition-all cursor-pointer flex items-center gap-1 ${
+              className={`px-2 py-0.5 rounded-md text-[10px] sm:text-xs font-bold transition-all cursor-pointer flex items-center gap-1 ${
                 currentClef === 'bass'
                   ? 'bg-red-600 text-white shadow-[0_0_8px_rgba(239,68,68,0.5)]'
                   : 'text-white/40 hover:text-white'
               }`}
               title="ヘ音記号 (Bass Clef / F Clef)"
             >
-              <span className="text-xs">𝄢</span>
+              <span className="text-xs sm:text-sm">𝄢</span>
               <span>ヘ音記号</span>
             </button>
           </div>
         </div>
 
-        <div className="flex items-center gap-3 text-[11px]">
+        <div className="flex items-center gap-2.5 sm:gap-3 text-[10px] sm:text-[11px]">
           <div className="flex items-center gap-1.5 text-white/70 font-medium">
             <span className="w-2 h-2 rounded-full bg-red-500 inline-block"></span>
             出題 (Target)
@@ -200,11 +200,11 @@ export const StaffNotation: React.FC<StaffNotationProps> = ({
       </div>
 
       {/* SVG Canvas */}
-      <div className="relative w-full overflow-x-auto rounded-xl bg-[#0B0B0D] border border-white/[0.05] p-1.5">
+      <div className="relative w-full overflow-x-auto rounded-xl bg-[#0B0B0D] border border-white/[0.05] p-2 flex items-center justify-center">
         <svg
           viewBox="0 0 740 145"
-          className={`w-full ${compact ? 'h-24 md:h-28' : 'h-28 md:h-36'} select-none`}
-          style={{ minWidth: '420px' }}
+          className={`w-full ${compact ? 'h-28 sm:h-32 md:h-36' : 'h-32 sm:h-40 md:h-48 lg:h-52 xl:h-56'} select-none`}
+          style={{ minWidth: '460px' }}
         >
           {/* Section Panels */}
           <rect

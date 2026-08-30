@@ -358,24 +358,24 @@ export const ChordDictionaryView: React.FC<ChordDictionaryViewProps> = ({
           </div>
         </div>
 
-        {/* Staff Notation (Compact) */}
-        <div className="flex-1 min-h-[140px] flex flex-col justify-center">
+        {/* Staff Notation (Full Size on Desktop) */}
+        <div className="flex-1 min-h-[160px] md:min-h-[200px] flex flex-col justify-center">
           <StaffNotation
             targetChord={selectedChord}
             activeMidiNotes={activeMidiNotes}
-            compact={true}
+            compact={false}
             clef={clef}
             onClefChange={onClefChange}
           />
         </div>
 
-        {/* Virtual Piano (Compact) */}
+        {/* Virtual Piano (Full Size on Desktop) */}
         <div className="flex-none">
           <VirtualPiano
             targetChord={selectedChord}
             activeMidiNotes={activeMidiNotes}
             showGuideHints={true}
-            compact={true}
+            compact={false}
             clef={clef}
           />
         </div>

@@ -342,11 +342,11 @@ export const CircleOfFifthsView: React.FC<CircleOfFifthsViewProps> = ({
           </div>
 
           {/* Staff Notation */}
-          <div className="flex-1 min-h-[140px] flex flex-col justify-center">
+          <div className="flex-1 min-h-[160px] md:min-h-[200px] flex flex-col justify-center">
             <StaffNotation
               targetChord={currentChord}
               activeMidiNotes={activeMidiNotes}
-              compact={true}
+              compact={false}
               clef={clef}
               onClefChange={onClefChange}
             />
@@ -360,7 +360,7 @@ export const CircleOfFifthsView: React.FC<CircleOfFifthsViewProps> = ({
           targetChord={currentChord}
           activeMidiNotes={activeMidiNotes}
           showGuideHints={true}
-          compact={true}
+          compact={false}
           clef={clef}
         />
       </div>
