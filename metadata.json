@@ -1,0 +1,6 @@
+{
+  "name": "Khordgraph",
+  "description": "Interactive visual piano chord trainer with Web MIDI support, 120-chord library, progression play-along, sheet music staff notation with treble and bass clefs, and Circle of Fifths.",
+  "requestFramePermissions": ["midi"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
