@@ -111,11 +111,11 @@ export const ChordDictionaryView: React.FC<ChordDictionaryViewProps> = ({
   };
 
   return (
-    <div className="w-full h-full flex flex-col lg:flex-row gap-3 min-h-0 overflow-hidden">
-      {/* Left Panel: 12 Roots + 120 Chord Types Library (Scrollable only if screen is very short) */}
-      <div className="w-full lg:w-5/12 flex flex-col gap-2.5 overflow-y-auto pr-1">
+    <div className="w-full h-full flex flex-col lg:flex-row gap-3 min-h-0 overflow-y-auto lg:overflow-hidden">
+      {/* Left Panel: 12 Roots + 120 Chord Types Library */}
+      <div className="w-full lg:w-5/12 flex flex-col gap-2.5 min-h-0 overflow-y-auto pr-0 lg:pr-1 flex-none lg:flex-1">
         {/* 1. 12 Roots Selector */}
-        <div className="bg-[#151518] border border-white/5 rounded-2xl p-3.5 shadow-xl flex-none">
+        <div className="bg-[#151518] border border-white/5 rounded-2xl p-3 sm:p-3.5 shadow-xl flex-none">
           <div className="flex items-center justify-between mb-2">
             <h3 className="text-[10px] uppercase tracking-widest text-white/50 font-bold flex items-center gap-1.5">
               <span className="w-2 h-2 rounded-full bg-red-500"></span>
@@ -126,7 +126,7 @@ export const ChordDictionaryView: React.FC<ChordDictionaryViewProps> = ({
             </span>
           </div>
 
-          <div className="grid grid-cols-6 sm:grid-cols-12 lg:grid-cols-6 gap-1.5">
+          <div className="grid grid-cols-4 sm:grid-cols-6 lg:grid-cols-6 gap-1 sm:gap-1.5">
             {ROOTS.map((r) => {
               const isSelected = r.pitchClass === selectedRoot;
               return (
@@ -134,13 +134,13 @@ export const ChordDictionaryView: React.FC<ChordDictionaryViewProps> = ({
                   key={`root-btn-${r.pitchClass}`}
                   id={`root-select-${r.pitchClass}`}
                   onClick={() => handleRootChange(r.pitchClass)}
-                  className={`flex flex-col items-center justify-center py-1.5 px-1 rounded-xl transition-all cursor-pointer ${
+                  className={`flex flex-col items-center justify-center py-2 sm:py-1.5 px-1 rounded-xl transition-all cursor-pointer ${
                     isSelected
                       ? 'bg-red-600 text-white font-extrabold shadow-[0_0_10px_rgba(239,68,68,0.5)] border border-white/40'
                       : 'bg-[#0F0F11] hover:bg-white/5 text-white/70 border border-white/5'
                   }`}
                 >
-                  <span className="text-xs font-bold font-mono">{r.name}</span>
+                  <span className="text-xs sm:text-xs font-bold font-mono">{r.name}</span>
                   <span className="text-[9px] opacity-60">{r.solfege}</span>
                 </button>
               );
@@ -149,7 +149,7 @@ export const ChordDictionaryView: React.FC<ChordDictionaryViewProps> = ({
         </div>
 
         {/* 2. Chord Types (120 Types) */}
-        <div className="bg-[#151518] border border-white/5 rounded-2xl p-3.5 shadow-xl flex-1 flex flex-col min-h-0">
+        <div className="bg-[#151518] border border-white/5 rounded-2xl p-3 sm:p-3.5 shadow-xl flex-1 flex flex-col min-h-0">
           <div className="flex flex-wrap items-center justify-between gap-2 mb-2 flex-none">
             <h3 className="text-[10px] uppercase tracking-widest text-white/50 font-bold flex items-center gap-1.5">
               <span className="w-2 h-2 rounded-full bg-red-500"></span>
@@ -157,10 +157,10 @@ export const ChordDictionaryView: React.FC<ChordDictionaryViewProps> = ({
             </h3>
 
             {/* Category Filter Chips */}
-            <div className="flex items-center gap-1 bg-[#0F0F11] p-0.5 rounded-lg border border-white/5 text-[10px]">
+            <div className="flex items-center gap-1 bg-[#0F0F11] p-0.5 rounded-lg border border-white/5 text-[10px] overflow-x-auto whitespace-nowrap scrollbar-none max-w-full">
               <button
                 onClick={() => setSelectedCategory('all')}
-                className={`px-2 py-0.5 rounded font-semibold transition-all cursor-pointer ${
+                className={`px-2 py-0.5 rounded font-semibold transition-all cursor-pointer shrink-0 ${
                   selectedCategory === 'all'
                     ? 'bg-red-600 text-white'
                     : 'text-white/40 hover:text-white'
@@ -170,7 +170,7 @@ export const ChordDictionaryView: React.FC<ChordDictionaryViewProps> = ({
               </button>
               <button
                 onClick={() => setSelectedCategory('basic')}
-                className={`px-2 py-0.5 rounded font-semibold transition-all cursor-pointer ${
+                className={`px-2 py-0.5 rounded font-semibold transition-all cursor-pointer shrink-0 ${
                   selectedCategory === 'basic'
                     ? 'bg-red-600 text-white'
                     : 'text-white/40 hover:text-white'
@@ -180,7 +180,7 @@ export const ChordDictionaryView: React.FC<ChordDictionaryViewProps> = ({
               </button>
               <button
                 onClick={() => setSelectedCategory('seventh')}
-                className={`px-2 py-0.5 rounded font-semibold transition-all cursor-pointer ${
+                className={`px-2 py-0.5 rounded font-semibold transition-all cursor-pointer shrink-0 ${
                   selectedCategory === 'seventh'
                     ? 'bg-red-600 text-white'
                     : 'text-white/40 hover:text-white'
@@ -190,7 +190,7 @@ export const ChordDictionaryView: React.FC<ChordDictionaryViewProps> = ({
               </button>
               <button
                 onClick={() => setSelectedCategory('altered')}
-                className={`px-2 py-0.5 rounded font-semibold transition-all cursor-pointer ${
+                className={`px-2 py-0.5 rounded font-semibold transition-all cursor-pointer shrink-0 ${
                   selectedCategory === 'altered'
                     ? 'bg-red-600 text-white'
                     : 'text-white/40 hover:text-white'
@@ -200,7 +200,7 @@ export const ChordDictionaryView: React.FC<ChordDictionaryViewProps> = ({
               </button>
               <button
                 onClick={() => setSelectedCategory('extended')}
-                className={`px-2 py-0.5 rounded font-semibold transition-all cursor-pointer ${
+                className={`px-2 py-0.5 rounded font-semibold transition-all cursor-pointer shrink-0 ${
                   selectedCategory === 'extended'
                     ? 'bg-red-600 text-white'
                     : 'text-white/40 hover:text-white'
@@ -212,7 +212,7 @@ export const ChordDictionaryView: React.FC<ChordDictionaryViewProps> = ({
           </div>
 
           {/* Types Grid */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-1.5 overflow-y-auto flex-1 pr-1">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-1.5 overflow-y-auto max-h-48 sm:max-h-64 lg:max-h-none flex-1 pr-1">
             {filteredTypes.map((type) => {
               const isSelected = type.id === selectedTypeId;
               return (
@@ -241,19 +241,19 @@ export const ChordDictionaryView: React.FC<ChordDictionaryViewProps> = ({
           </div>
 
           {/* Inversion Selector */}
-          <div className="mt-2 pt-2 border-t border-white/5 flex items-center justify-between text-xs flex-none">
+          <div className="mt-2 pt-2 border-t border-white/5 flex flex-wrap items-center justify-between gap-1.5 text-xs flex-none">
             <span className="text-[10px] text-white/40 font-bold uppercase tracking-wider flex items-center gap-1">
               <Layers className="w-3 h-3 text-red-500" />
               転回形 (Inversion):
             </span>
-            <div className="flex items-center gap-1 bg-[#0F0F11] p-0.5 rounded-lg border border-white/5 text-[10px]">
+            <div className="flex items-center gap-1 bg-[#0F0F11] p-0.5 rounded-lg border border-white/5 text-[10px] overflow-x-auto">
               {['基本形', '第1転回', '第2転回', '第3転回'].map((label, idx) => {
                 if (idx >= selectedChord.midiNotes.length) return null;
                 return (
                   <button
                     key={`inv-btn-${idx}`}
                     onClick={() => handleInversionChange(idx)}
-                    className={`px-2 py-0.5 rounded font-semibold transition-all cursor-pointer ${
+                    className={`px-2 py-0.5 rounded font-semibold transition-all cursor-pointer whitespace-nowrap ${
                       inversion === idx
                         ? 'bg-red-600 text-white'
                         : 'text-white/40 hover:text-white'
@@ -269,12 +269,12 @@ export const ChordDictionaryView: React.FC<ChordDictionaryViewProps> = ({
       </div>
 
       {/* Right Panel: Active Chord Display Header + Staff Notation + Virtual Piano */}
-      <div className="w-full lg:w-7/12 flex flex-col gap-2.5 min-h-0 overflow-hidden justify-between">
+      <div className="w-full lg:w-7/12 flex flex-col gap-2.5 min-h-0 overflow-y-auto lg:overflow-hidden justify-between flex-1">
         {/* Chord Banner */}
-        <div className="bg-[#151518] border border-white/5 rounded-2xl p-4 shadow-xl flex-none relative overflow-hidden">
-          <div className="flex items-center justify-between gap-4">
+        <div className="bg-[#151518] border border-white/5 rounded-2xl p-3 sm:p-4 shadow-xl flex-none relative overflow-hidden">
+          <div className="flex flex-wrap sm:flex-nowrap items-start justify-between gap-3">
             <div>
-              <div className="flex items-center gap-2 mb-1">
+              <div className="flex flex-wrap items-center gap-2 mb-1">
                 <span className="text-[9px] uppercase tracking-widest text-white/40 font-bold">
                   Active Chord
                 </span>
@@ -286,23 +286,23 @@ export const ChordDictionaryView: React.FC<ChordDictionaryViewProps> = ({
                 </span>
               </div>
 
-              <div className="flex items-baseline gap-3">
-                <h2 className="text-4xl md:text-5xl font-display-serif font-light tracking-wide text-white">
+              <div className="flex items-baseline gap-2 sm:gap-3">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-display-serif font-light tracking-wide text-white">
                   {selectedChord.rootName}
-                  <span className="text-2xl md:text-3xl ml-1 font-sans text-red-400">
+                  <span className="text-2xl sm:text-3xl ml-1 font-sans text-red-400">
                     {selectedChord.symbol || selectedChord.typeName}
                   </span>
                 </h2>
-                <span className="text-sm font-mono text-white/40">
+                <span className="text-xs sm:text-sm font-mono text-white/40">
                   ({selectedChord.rootSolfege} {selectedChord.symbol})
                 </span>
               </div>
             </div>
 
             {/* Right Status & Audio */}
-            <div className="flex flex-col items-end gap-2">
+            <div className="flex flex-row sm:flex-col items-center sm:items-end gap-2 w-full sm:w-auto justify-between sm:justify-start">
               {isMatched ? (
-                <div className="flex items-center gap-1.5 px-3 py-1 rounded-xl bg-red-500/20 border border-red-500/50 text-red-300 font-bold text-xs shadow-[0_0_12px_rgba(239,68,68,0.3)]">
+                <div className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-xl bg-red-500/20 border border-red-500/50 text-red-300 font-bold text-xs shadow-[0_0_12px_rgba(239,68,68,0.3)]">
                   <Sparkles className="w-3.5 h-3.5 text-red-400" />
                   <span>正解！MATCH</span>
                 </div>
@@ -316,24 +316,24 @@ export const ChordDictionaryView: React.FC<ChordDictionaryViewProps> = ({
               <div className="flex items-center gap-1.5">
                 <button
                   onClick={handlePlayChord}
-                  className="flex items-center gap-1 px-3 py-1 rounded-lg bg-red-600 hover:bg-red-500 text-white font-bold text-xs transition-all cursor-pointer shadow-md"
+                  className="flex items-center gap-1 px-2.5 sm:px-3 py-1 rounded-lg bg-red-600 hover:bg-red-500 text-white font-bold text-xs transition-all cursor-pointer shadow-md"
                 >
                   <Volume2 className="w-3 h-3" />
-                  和音再生
+                  和音
                 </button>
                 <button
                   onClick={handlePlayArpeggio}
-                  className="flex items-center gap-1 px-3 py-1 rounded-lg bg-white/5 hover:bg-white/10 text-white/80 font-semibold text-xs border border-white/10 transition-all cursor-pointer"
+                  className="flex items-center gap-1 px-2.5 sm:px-3 py-1 rounded-lg bg-white/5 hover:bg-white/10 text-white/80 font-semibold text-xs border border-white/10 transition-all cursor-pointer"
                 >
                   <Music2 className="w-3 h-3 text-red-400" />
-                  分散和音
+                  アルペジオ
                 </button>
               </div>
             </div>
           </div>
 
           {/* Constituents Bar */}
-          <div className="flex items-center gap-1.5 mt-2 pt-2 border-t border-white/5 text-xs">
+          <div className="flex flex-wrap items-center gap-1.5 mt-2 pt-2 border-t border-white/5 text-xs">
             <span className="text-[10px] text-white/40 uppercase tracking-wider font-bold">
               構成音:
             </span>
@@ -346,7 +346,7 @@ export const ChordDictionaryView: React.FC<ChordDictionaryViewProps> = ({
                 return (
                   <span
                     key={`const-${idx}`}
-                    className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-[#0F0F11] border border-white/10 font-mono text-[11px]"
+                    className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-[#0F0F11] border border-white/10 font-mono text-[10px] sm:text-[11px]"
                     style={{ color: roleInfo.hexColor }}
                   >
                     <strong>{noteName}</strong>
@@ -359,7 +359,7 @@ export const ChordDictionaryView: React.FC<ChordDictionaryViewProps> = ({
         </div>
 
         {/* Staff Notation (Compact) */}
-        <div className="flex-1 min-h-0 flex flex-col justify-center">
+        <div className="flex-1 min-h-[140px] flex flex-col justify-center">
           <StaffNotation
             targetChord={selectedChord}
             activeMidiNotes={activeMidiNotes}

@@ -180,19 +180,22 @@ export const VirtualPiano: React.FC<VirtualPianoProps> = ({
   return (
     <div
       className={`w-full bg-[#151518] border border-white/5 rounded-2xl shadow-2xl select-none flex flex-col justify-between ${
-        compact ? 'p-3 md:p-3.5' : 'p-4 md:p-5'
+        compact ? 'p-2.5 sm:p-3 md:p-3.5' : 'p-3 sm:p-4 md:p-5'
       }`}
     >
       {/* Keyboard Controls Bar */}
-      <div className="flex flex-wrap items-center justify-between gap-2 mb-2 pb-2 border-b border-white/5 text-xs">
-        <div className="flex items-center gap-2">
-          <div className="flex items-center gap-1.5 px-2.5 py-0.5 rounded-lg bg-white/5 border border-white/10 text-white/80 font-semibold tracking-wide text-[11px]">
-            <Volume2 className="w-3.5 h-3.5 text-red-500" />
-            <span>
-              37鍵盤 (C{currentStartOctave} - C{currentStartOctave + octaveCount})
+      <div className="flex flex-wrap items-center justify-between gap-1.5 sm:gap-2 mb-2 pb-2 border-b border-white/5 text-xs">
+        <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
+          <div className="flex items-center gap-1.5 px-2 sm:px-2.5 py-0.5 rounded-lg bg-white/5 border border-white/10 text-white/80 font-semibold tracking-wide text-[10px] sm:text-[11px]">
+            <Volume2 className="w-3 sm:w-3.5 h-3 sm:h-3.5 text-red-500" />
+            <span className="hidden sm:inline">
+              37鍵 (C{currentStartOctave} - C{currentStartOctave + octaveCount})
+            </span>
+            <span className="sm:hidden font-mono">
+              C{currentStartOctave}-C{currentStartOctave + octaveCount}
             </span>
             <span className="px-1 py-0.2 text-[9px] rounded bg-red-500/20 text-red-300 font-mono">
-              {clef === 'bass' ? '𝄢 ヘ音域最適' : '𝄞 ト音域最適'}
+              {clef === 'bass' ? '𝄢 ヘ音' : '𝄞 ト音'}
             </span>
           </div>
 
@@ -224,41 +227,41 @@ export const VirtualPiano: React.FC<VirtualPianoProps> = ({
           <button
             id="toggle-guide-hints-btn"
             onClick={() => setGuideVisible(!guideVisible)}
-            className={`flex items-center gap-1.5 px-2.5 py-0.5 rounded-lg font-medium text-[11px] transition-all cursor-pointer ${
+            className={`flex items-center gap-1 sm:gap-1.5 px-2 sm:px-2.5 py-0.5 rounded-lg font-medium text-[10px] sm:text-[11px] transition-all cursor-pointer ${
               guideVisible
                 ? 'bg-red-950/40 text-red-300 border border-red-500/40 shadow-sm'
                 : 'bg-white/5 text-white/40 hover:text-white border border-white/10'
             }`}
           >
-            {guideVisible ? <Eye className="w-3 h-3 text-red-400" /> : <EyeOff className="w-3 h-3" />}
+            {guideVisible ? <Eye className="w-3 h-3 text-red-400" /> : <EyeOff className="w-3 h-3 text-white/40" />}
             <span>{guideVisible ? 'ガイドON' : 'ガイドOFF'}</span>
           </button>
         </div>
 
         {/* Label Mode Switcher */}
-        <div className="flex items-center gap-1 bg-[#0F0F11] p-0.5 rounded-lg border border-white/5">
+        <div className="flex items-center gap-0.5 sm:gap-1 bg-[#0F0F11] p-0.5 rounded-lg border border-white/5 overflow-x-auto whitespace-nowrap scrollbar-none max-w-full">
           <button
             id="label-mode-degrees-btn"
             onClick={() => setLabelMode('degrees')}
-            className={`px-2 py-0.5 rounded text-[10px] font-semibold tracking-wider transition-all cursor-pointer ${
+            className={`px-1.5 sm:px-2 py-0.5 rounded text-[9px] sm:text-[10px] font-semibold tracking-wider transition-all cursor-pointer shrink-0 ${
               labelMode === 'degrees' ? 'bg-red-600 text-white shadow-md' : 'text-white/40 hover:text-white'
             }`}
           >
-            度数 (R/3/5/7)
+            度数
           </button>
           <button
             id="label-mode-notes-btn"
             onClick={() => setLabelMode('notes')}
-            className={`px-2 py-0.5 rounded text-[10px] font-semibold tracking-wider transition-all cursor-pointer ${
+            className={`px-1.5 sm:px-2 py-0.5 rounded text-[9px] sm:text-[10px] font-semibold tracking-wider transition-all cursor-pointer shrink-0 ${
               labelMode === 'notes' ? 'bg-red-600 text-white shadow-md' : 'text-white/40 hover:text-white'
             }`}
           >
-            音名 (C/D/E)
+            音名
           </button>
           <button
             id="label-mode-solfege-btn"
             onClick={() => setLabelMode('solfege')}
-            className={`px-2 py-0.5 rounded text-[10px] font-semibold tracking-wider transition-all cursor-pointer ${
+            className={`px-1.5 sm:px-2 py-0.5 rounded text-[9px] sm:text-[10px] font-semibold tracking-wider transition-all cursor-pointer shrink-0 ${
               labelMode === 'solfege' ? 'bg-red-600 text-white shadow-md' : 'text-white/40 hover:text-white'
             }`}
           >
@@ -267,38 +270,38 @@ export const VirtualPiano: React.FC<VirtualPianoProps> = ({
           <button
             id="label-mode-keyboard-btn"
             onClick={() => setLabelMode('keyboard')}
-            className={`flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-semibold tracking-wider transition-all cursor-pointer ${
+            className={`flex items-center gap-0.5 sm:gap-1 px-1.5 sm:px-2 py-0.5 rounded text-[9px] sm:text-[10px] font-semibold tracking-wider transition-all cursor-pointer shrink-0 ${
               labelMode === 'keyboard' ? 'bg-red-600 text-white shadow-md' : 'text-white/40 hover:text-white'
             }`}
             title="PCキーボード対応キー (A,W,S,E,D...)"
           >
             <KeyboardIcon className="w-2.5 h-2.5" />
-            PCキー
+            PC
           </button>
         </div>
       </div>
 
       {/* Interval Role Legend Badges */}
       {guideVisible && targetChord && (
-        <div className="flex flex-wrap items-center gap-1.5 mb-2 px-2.5 py-1 bg-[#0F0F11] rounded-lg text-xs border border-white/5">
+        <div className="flex flex-wrap items-center gap-1 sm:gap-1.5 mb-2 px-2 sm:px-2.5 py-1 bg-[#0F0F11] rounded-lg text-xs border border-white/5">
           <span className="text-white/40 font-bold uppercase tracking-widest text-[9px] mr-1">
             Intervals:
           </span>
-          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-red-500/10 text-red-400 border border-red-500/30 font-mono font-bold text-[10px]">
+          <span className="inline-flex items-center gap-1 px-1.5 sm:px-2 py-0.5 rounded bg-red-500/10 text-red-400 border border-red-500/30 font-mono font-bold text-[9px] sm:text-[10px]">
             <span className="w-1.5 h-1.5 rounded-full bg-red-500"></span> ルート (Root)
           </span>
-          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-blue-500/10 text-blue-300 border border-blue-500/30 font-mono font-bold text-[10px]">
-            <span className="w-2 h-2 rounded-full bg-blue-400"></span> 3rd (3度)
+          <span className="inline-flex items-center gap-1 px-1.5 sm:px-2 py-0.5 rounded bg-blue-500/10 text-blue-300 border border-blue-500/30 font-mono font-bold text-[9px] sm:text-[10px]">
+            <span className="w-1.5 h-1.5 rounded-full bg-blue-400"></span> 3rd (3度)
           </span>
-          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-green-500/10 text-green-300 border border-green-500/30 font-mono font-bold text-[10px]">
-            <span className="w-2 h-2 rounded-full bg-green-400"></span> 5th (5度)
+          <span className="inline-flex items-center gap-1 px-1.5 sm:px-2 py-0.5 rounded bg-green-500/10 text-green-300 border border-green-500/30 font-mono font-bold text-[9px] sm:text-[10px]">
+            <span className="w-1.5 h-1.5 rounded-full bg-green-400"></span> 5th (5度)
           </span>
-          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-yellow-500/10 text-yellow-300 border border-yellow-500/30 font-mono font-bold text-[10px]">
-            <span className="w-2 h-2 rounded-full bg-yellow-400"></span> 7th (7度)
+          <span className="inline-flex items-center gap-1 px-1.5 sm:px-2 py-0.5 rounded bg-yellow-500/10 text-yellow-300 border border-yellow-500/30 font-mono font-bold text-[9px] sm:text-[10px]">
+            <span className="w-1.5 h-1.5 rounded-full bg-yellow-400"></span> 7th (7度)
           </span>
           {targetChord.roles.includes('extension') && (
-            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-purple-500/10 text-purple-300 border border-purple-500/30 font-mono font-bold text-[10px]">
-              <span className="w-2 h-2 rounded-full bg-purple-400"></span> 9th / テンション
+            <span className="inline-flex items-center gap-1 px-1.5 sm:px-2 py-0.5 rounded bg-purple-500/10 text-purple-300 border border-purple-500/30 font-mono font-bold text-[9px] sm:text-[10px]">
+              <span className="w-1.5 h-1.5 rounded-full bg-purple-400"></span> 9th / テンション
             </span>
           )}
         </div>
@@ -307,10 +310,10 @@ export const VirtualPiano: React.FC<VirtualPianoProps> = ({
       {/* Piano Keyboard Container */}
       <div
         className={`relative w-full ${
-          compact ? 'h-28 md:h-36' : 'h-36 md:h-44'
-        } bg-[#0A0A0B] rounded-xl p-1 overflow-hidden shadow-2xl border border-white/5`}
+          compact ? 'h-28 sm:h-32 md:h-36' : 'h-32 sm:h-36 md:h-44'
+        } bg-[#0A0A0B] rounded-xl p-1 overflow-x-auto md:overflow-hidden shadow-2xl border border-white/5 touch-none scrollbar-none`}
       >
-        <div className="relative w-full h-full flex">
+        <div className="relative min-w-[540px] sm:min-w-0 w-full h-full flex">
           {/* Render White Keys */}
           {whiteKeys.map((key) => {
             const roleInfo = key.role && INTERVAL_ROLES[key.role] ? INTERVAL_ROLES[key.role] : null;

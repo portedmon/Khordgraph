@@ -61,8 +61,8 @@ export default function App() {
         onToggleMute={handleToggleMute}
       />
 
-      {/* Main Workspace Viewport (flex-1 fills available height, overflow-hidden) */}
-      <main className="flex-1 min-h-0 w-full max-w-[1720px] mx-auto p-2 md:p-3 overflow-hidden flex flex-col">
+      {/* Main Workspace Viewport */}
+      <main className="flex-1 min-h-0 w-full max-w-[1720px] mx-auto p-2 sm:p-2.5 md:p-3 overflow-y-auto md:overflow-hidden flex flex-col">
         {currentMode === 'dictionary' && (
           <ChordDictionaryView
             selectedChord={currentChord}
@@ -126,18 +126,18 @@ export default function App() {
       />
 
       {/* Footer Status Bar (flex-none) */}
-      <footer className="flex-none h-7 border-t border-white/5 bg-[#0A0A0B] px-4 flex items-center justify-between text-[11px] text-white/40 font-mono">
-        <div className="flex items-center gap-3 truncate">
+      <footer className="flex-none min-h-7 py-1 border-t border-white/5 bg-[#0A0A0B] px-3 sm:px-4 flex flex-wrap items-center justify-between gap-2 text-[10px] md:text-[11px] text-white/40 font-mono">
+        <div className="flex items-center gap-2 sm:gap-3 truncate">
           <span className="font-semibold text-white/70">Khordgraph</span>
           <span className="opacity-40">|</span>
           <span className="truncate">
             {currentChord.fullName} [{currentChord.noteNames.join(' - ')}]
           </span>
         </div>
-        <div className="flex items-center gap-3">
-          <span>Web MIDI: {midiState.isConnected ? 'CONNECTED' : 'STANDBY'}</span>
+        <div className="flex items-center gap-2 sm:gap-3 text-[10px]">
+          <span>MIDI: {midiState.isConnected ? 'CONNECTED' : 'STANDBY'}</span>
           <span className="opacity-40">|</span>
-          <span>Latency: ~5ms</span>
+          <span>Web Audio Engine</span>
         </div>
       </footer>
     </div>

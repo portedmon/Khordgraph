@@ -144,14 +144,14 @@ export const FlashcardQuizView: React.FC<FlashcardQuizViewProps> = ({
   };
 
   return (
-    <div className="w-full h-full flex flex-col justify-between gap-2.5 min-h-0 overflow-hidden">
+    <div className="w-full h-full flex flex-col justify-between gap-2.5 min-h-0 overflow-y-auto lg:overflow-hidden">
       {/* Top Quiz Score & Controls Bar */}
-      <div className="bg-[#151518] border border-white/5 rounded-2xl px-4 py-3 shadow-xl flex-none">
-        <div className="flex flex-wrap items-center justify-between gap-3">
+      <div className="bg-[#151518] border border-white/5 rounded-2xl px-3 sm:px-4 py-2.5 sm:py-3 shadow-xl flex-none">
+        <div className="flex flex-wrap items-center justify-between gap-2.5 sm:gap-3">
           {/* Difficulty Filter */}
-          <div className="flex items-center gap-1 bg-[#0F0F11] p-0.5 rounded-xl border border-white/5 text-xs">
-            <span className="text-white/40 font-bold uppercase tracking-widest text-[9px] px-2 flex items-center gap-1">
-              <Filter className="w-3 h-3 text-red-500" /> 出題範囲:
+          <div className="flex items-center gap-1 bg-[#0F0F11] p-0.5 rounded-xl border border-white/5 text-xs overflow-x-auto whitespace-nowrap scrollbar-none max-w-full">
+            <span className="text-white/40 font-bold uppercase tracking-widest text-[9px] px-1.5 sm:px-2 flex items-center gap-1 shrink-0">
+              <Filter className="w-3 h-3 text-red-500" /> 出題:
             </span>
             {(
               [
@@ -167,7 +167,7 @@ export const FlashcardQuizView: React.FC<FlashcardQuizViewProps> = ({
                   setQuizPoolType(key);
                   pickRandomChord();
                 }}
-                className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                className={`px-2 sm:px-2.5 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer shrink-0 ${
                   quizPoolType === key
                     ? 'bg-red-600 text-white shadow-sm'
                     : 'text-white/40 hover:text-white'
@@ -179,30 +179,31 @@ export const FlashcardQuizView: React.FC<FlashcardQuizViewProps> = ({
           </div>
 
           {/* Score, Streak & Timer Badges */}
-          <div className="flex items-center gap-2 text-xs">
-            <div className="flex items-center gap-1.5 px-3 py-1 rounded-xl bg-[#0F0F11] border border-white/5 font-mono">
+          <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 text-xs">
+            <div className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-xl bg-[#0F0F11] border border-white/5 font-mono">
               <Flame className="w-3.5 h-3.5 text-amber-500" />
-              <span className="text-white/40 text-[10px]">STREAK:</span>
-              <span className="font-extrabold text-amber-400 text-sm">{streak}</span>
+              <span className="text-white/40 text-[10px]">連続:</span>
+              <span className="font-extrabold text-amber-400 text-xs sm:text-sm">{streak}</span>
             </div>
 
-            <div className="flex items-center gap-1.5 px-3 py-1 rounded-xl bg-[#0F0F11] border border-white/5 font-mono">
+            <div className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-xl bg-[#0F0F11] border border-white/5 font-mono">
               <Trophy className="w-3.5 h-3.5 text-yellow-500" />
-              <span className="text-white/40 text-[10px]">SCORE:</span>
-              <span className="font-extrabold text-white text-sm">{score}</span>
+              <span className="text-white/40 text-[10px]">得点:</span>
+              <span className="font-extrabold text-white text-xs sm:text-sm">{score}</span>
             </div>
 
-            <div className="flex items-center gap-1.5 px-3 py-1 rounded-xl bg-[#0F0F11] border border-white/5 font-mono">
+            <div className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-xl bg-[#0F0F11] border border-white/5 font-mono">
               <Clock className="w-3.5 h-3.5 text-white/40" />
-              <span className="font-bold text-white/70">{formatTime(timerSeconds)}</span>
+              <span className="font-bold text-white/70 text-xs">{formatTime(timerSeconds)}</span>
             </div>
 
             <button
               id="skip-quiz-question-btn"
               onClick={handleSkip}
-              className="flex items-center gap-1 px-3 py-1 rounded-xl bg-white/5 hover:bg-white/10 text-white/70 hover:text-white font-semibold text-xs border border-white/10 transition-all cursor-pointer"
+              className="flex items-center gap-1 px-2.5 sm:px-3 py-1 rounded-xl bg-white/5 hover:bg-white/10 text-white/70 hover:text-white font-semibold text-xs border border-white/10 transition-all cursor-pointer"
             >
-              <SkipForward className="w-3 h-3" /> スキップ
+              <SkipForward className="w-3 h-3" />
+              <span className="hidden sm:inline">スキップ</span>
             </button>
 
             <button
@@ -217,9 +218,9 @@ export const FlashcardQuizView: React.FC<FlashcardQuizViewProps> = ({
       </div>
 
       {/* Middle Row: Question Card (Left) vs Staff Notation (Right) */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-3 flex-1 min-h-0">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-3 flex-1 min-h-0 overflow-y-auto lg:overflow-hidden">
         {/* Left: Giant Mystery Question Card */}
-        <div className="lg:col-span-5 bg-[#151518] border border-white/5 rounded-2xl p-5 shadow-2xl flex flex-col justify-between relative overflow-hidden">
+        <div className="lg:col-span-5 bg-[#151518] border border-white/5 rounded-2xl p-4 sm:p-5 shadow-2xl flex flex-col justify-between relative overflow-hidden flex-none lg:flex-auto">
           <div>
             <div className="flex items-center justify-between mb-2">
               <div className="flex items-center gap-2">
@@ -237,14 +238,14 @@ export const FlashcardQuizView: React.FC<FlashcardQuizViewProps> = ({
               <span className="text-[9px] uppercase tracking-widest text-white/40 font-bold">
                 弾いてみよう！ (Play this chord):
               </span>
-              <div className="flex items-baseline gap-3 my-1">
-                <h2 className="text-5xl md:text-6xl font-display-serif font-light tracking-wide text-white">
+              <div className="flex items-baseline gap-2 sm:gap-3 my-1">
+                <h2 className="text-4xl sm:text-5xl md:text-6xl font-display-serif font-light tracking-wide text-white">
                   {currentChord.rootName}
-                  <span className="text-3xl md:text-4xl ml-1 font-sans text-red-400">
+                  <span className="text-2xl sm:text-3xl md:text-4xl ml-1 font-sans text-red-400">
                     {currentChord.symbol || currentChord.typeName}
                   </span>
                 </h2>
-                <span className="text-lg font-mono text-white/40">
+                <span className="text-sm sm:text-lg font-mono text-white/40">
                   ({currentChord.rootSolfege} {currentChord.symbol})
                 </span>
               </div>
@@ -255,9 +256,9 @@ export const FlashcardQuizView: React.FC<FlashcardQuizViewProps> = ({
           </div>
 
           {/* Feedback Banner or Hint */}
-          <div className="mt-3 pt-3 border-t border-white/5 flex items-center justify-between">
+          <div className="mt-3 pt-3 border-t border-white/5 flex flex-wrap items-center justify-between gap-2">
             {isMatched ? (
-              <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-red-500/20 border border-red-500/50 text-red-300 font-bold text-xs shadow-[0_0_15px_rgba(239,68,68,0.3)] animate-bounce-short">
+              <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-red-500/20 border border-red-500/50 text-red-300 font-bold text-xs shadow-[0_0_15px_rgba(239,68,68,0.3)] animate-bounce-short">
                 <Sparkles className="w-4 h-4 text-red-400" />
                 <span>EXCELLENT! 正解です！</span>
               </div>
@@ -279,7 +280,7 @@ export const FlashcardQuizView: React.FC<FlashcardQuizViewProps> = ({
         </div>
 
         {/* Right: Staff Notation */}
-        <div className="lg:col-span-7 flex flex-col justify-center">
+        <div className="lg:col-span-7 flex flex-col justify-center min-h-[140px]">
           <StaffNotation
             targetChord={currentChord}
             activeMidiNotes={activeMidiNotes}

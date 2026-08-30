@@ -152,20 +152,20 @@ export const ProgressionPlayAlongView: React.FC<ProgressionPlayAlongViewProps> =
   };
 
   return (
-    <div className="w-full h-full flex flex-col justify-between gap-2.5 min-h-0 overflow-hidden">
+    <div className="w-full h-full flex flex-col justify-between gap-2.5 min-h-0 overflow-y-auto lg:overflow-hidden">
       {/* Top Controls Bar: Presets & Transposition & Modes */}
-      <div className="bg-[#151518] border border-white/5 rounded-2xl px-4 py-3 shadow-xl flex-none">
-        <div className="flex flex-wrap items-center justify-between gap-3">
+      <div className="bg-[#151518] border border-white/5 rounded-2xl px-3 sm:px-4 py-2.5 sm:py-3 shadow-xl flex-none">
+        <div className="flex flex-wrap items-center justify-between gap-2.5 sm:gap-3">
           {/* Progression Preset Picker */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5 sm:gap-2">
             <span className="text-white/40 font-bold uppercase tracking-widest text-[9px] flex items-center gap-1">
-              <Music className="w-3 h-3 text-red-500" /> 進行プリセット:
+              <Music className="w-3 h-3 text-red-500" /> 進行:
             </span>
             <select
               id="progression-preset-select"
               value={selectedProgressionId}
               onChange={(e) => handleSelectProgression(e.target.value)}
-              className="bg-[#0F0F11] border border-white/10 text-white font-bold text-xs rounded-xl px-3 py-1.5 focus:outline-none focus:border-red-500 cursor-pointer"
+              className="bg-[#0F0F11] border border-white/10 text-white font-bold text-xs rounded-xl px-2.5 sm:px-3 py-1.5 focus:outline-none focus:border-red-500 cursor-pointer max-w-[180px] sm:max-w-none truncate"
             >
               {PROGRESSION_PRESETS.map((prog) => (
                 <option key={prog.id} value={prog.id}>
@@ -176,15 +176,15 @@ export const ProgressionPlayAlongView: React.FC<ProgressionPlayAlongViewProps> =
           </div>
 
           {/* 12 Key Transposition Selector */}
-          <div className="flex items-center gap-1 bg-[#0F0F11] p-0.5 rounded-xl border border-white/5 text-[10px]">
-            <span className="text-white/40 font-bold uppercase tracking-wider px-1.5">
+          <div className="flex items-center gap-1 bg-[#0F0F11] p-0.5 rounded-xl border border-white/5 text-[10px] overflow-x-auto whitespace-nowrap scrollbar-none max-w-full">
+            <span className="text-white/40 font-bold uppercase tracking-wider px-1.5 shrink-0">
               Key:
             </span>
             {ROOTS.map((r) => (
               <button
                 key={`key-${r.pitchClass}`}
                 onClick={() => handleSelectKey(r.pitchClass)}
-                className={`px-1.5 py-0.5 rounded font-bold transition-all cursor-pointer ${
+                className={`px-1.5 py-0.5 rounded font-bold transition-all cursor-pointer shrink-0 ${
                   keyRoot === r.pitchClass
                     ? 'bg-red-600 text-white shadow-sm'
                     : 'text-white/40 hover:text-white'
@@ -196,30 +196,30 @@ export const ProgressionPlayAlongView: React.FC<ProgressionPlayAlongViewProps> =
           </div>
 
           {/* Mode Switch & Stats */}
-          <div className="flex items-center gap-2 text-xs">
+          <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 text-xs">
             <div className="flex items-center gap-1 bg-[#0F0F11] p-0.5 rounded-lg border border-white/5">
               <button
                 onClick={() => {
                   setPlayMode('stepByStep');
                   setIsPlayingBpm(false);
                 }}
-                className={`px-2.5 py-1 rounded text-xs font-bold transition-all cursor-pointer ${
+                className={`px-2 sm:px-2.5 py-1 rounded text-xs font-bold transition-all cursor-pointer ${
                   playMode === 'stepByStep'
                     ? 'bg-red-600 text-white shadow-sm'
                     : 'text-white/40 hover:text-white'
                 }`}
               >
-                ステップ判定 (Wait)
+                ステップ判定
               </button>
               <button
                 onClick={() => setPlayMode('bpmFlow')}
-                className={`px-2.5 py-1 rounded text-xs font-bold transition-all cursor-pointer ${
+                className={`px-2 sm:px-2.5 py-1 rounded text-xs font-bold transition-all cursor-pointer ${
                   playMode === 'bpmFlow'
                     ? 'bg-red-600 text-white shadow-sm'
                     : 'text-white/40 hover:text-white'
                 }`}
               >
-                メトロノーム (BPM)
+                BPM進行
               </button>
             </div>
 
@@ -232,7 +232,7 @@ export const ProgressionPlayAlongView: React.FC<ProgressionPlayAlongViewProps> =
                   max="200"
                   value={bpm}
                   onChange={(e) => setBpm(Number(e.target.value))}
-                  className="w-12 bg-transparent text-white font-mono font-bold text-xs text-center border-b border-white/20 focus:outline-none"
+                  className="w-10 sm:w-12 bg-transparent text-white font-mono font-bold text-xs text-center border-b border-white/20 focus:outline-none"
                 />
                 <button
                   onClick={() => setIsPlayingBpm(!isPlayingBpm)}
@@ -263,13 +263,13 @@ export const ProgressionPlayAlongView: React.FC<ProgressionPlayAlongViewProps> =
       </div>
 
       {/* Middle Row: Progression Flow Visualizer (Left) vs Staff Notation (Right) */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-3 flex-1 min-h-0">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-3 flex-1 min-h-0 overflow-y-auto lg:overflow-hidden">
         {/* Left: Progression Flow Timeline Cards */}
-        <div className="lg:col-span-6 bg-[#151518] border border-white/5 rounded-2xl p-4 md:p-5 shadow-2xl flex flex-col justify-between overflow-hidden">
+        <div className="lg:col-span-6 bg-[#151518] border border-white/5 rounded-2xl p-3.5 sm:p-4 md:p-5 shadow-2xl flex flex-col justify-between overflow-hidden flex-none lg:flex-auto">
           <div>
             <div className="flex items-center justify-between mb-2">
               <div>
-                <h3 className="text-base font-bold text-white flex items-center gap-2">
+                <h3 className="text-sm sm:text-base font-bold text-white flex items-center gap-2">
                   <span>{activeProgression.japaneseName}</span>
                   <span className="text-xs px-2 py-0.5 rounded-full bg-red-950/60 text-red-300 border border-red-500/30">
                     Key: {ROOTS[keyRoot].name}
@@ -283,9 +283,9 @@ export const ProgressionPlayAlongView: React.FC<ProgressionPlayAlongViewProps> =
 
               <div className="text-right">
                 <span className="text-[9px] uppercase tracking-widest text-white/40 font-bold">
-                  進捗 (Progress)
+                  進捗
                 </span>
-                <div className="text-sm font-mono font-bold text-white">
+                <div className="text-xs sm:text-sm font-mono font-bold text-white">
                   <span className="text-red-400">{currentStepIndex + 1}</span> /{' '}
                   {activeProgression.steps.length} 小節
                 </div>
@@ -299,13 +299,13 @@ export const ProgressionPlayAlongView: React.FC<ProgressionPlayAlongViewProps> =
                   ▶ 今弾くコード (Now Playing):
                 </span>
                 <div className="flex items-baseline gap-2">
-                  <span className="text-4xl md:text-5xl font-display-serif font-light text-white">
+                  <span className="text-3xl sm:text-4xl md:text-5xl font-display-serif font-light text-white">
                     {activeStepChord.rootName}
-                    <span className="text-2xl ml-0.5 text-red-400">
+                    <span className="text-xl sm:text-2xl ml-0.5 text-red-400">
                       {activeStepChord.symbol || activeStepChord.typeName}
                     </span>
                   </span>
-                  <span className="text-sm font-mono text-white/40">
+                  <span className="text-xs sm:text-sm font-mono text-white/40">
                     [{activeProgression.steps[currentStepIndex]?.degreeLabel}]
                   </span>
                 </div>
@@ -315,13 +315,13 @@ export const ProgressionPlayAlongView: React.FC<ProgressionPlayAlongViewProps> =
               </div>
 
               {/* Next Chord Up Next */}
-              <div className="text-right pl-4 border-l border-white/5">
+              <div className="text-right pl-3 sm:pl-4 border-l border-white/5">
                 <span className="text-[9px] uppercase tracking-widest text-white/30 font-bold block">
                   次 (Next):
                 </span>
-                <span className="text-xl font-display-serif text-white/60">
+                <span className="text-lg sm:text-xl font-display-serif text-white/60">
                   {nextStepChord.rootName}
-                  <span className="text-sm ml-0.5 text-white/40">
+                  <span className="text-xs sm:text-sm ml-0.5 text-white/40">
                     {nextStepChord.symbol || nextStepChord.typeName}
                   </span>
                 </span>
@@ -337,7 +337,7 @@ export const ProgressionPlayAlongView: React.FC<ProgressionPlayAlongViewProps> =
             <span className="text-[9px] uppercase tracking-widest text-white/40 font-bold">
               コード進行シーケンス (Measures):
             </span>
-            <div className="grid grid-cols-4 gap-2">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
               {resolvedChords.map((chord, idx) => {
                 const isCurrent = idx === currentStepIndex;
                 const isPast = idx < currentStepIndex;
@@ -347,7 +347,7 @@ export const ProgressionPlayAlongView: React.FC<ProgressionPlayAlongViewProps> =
                   <button
                     key={`step-card-${idx}`}
                     onClick={() => setCurrentStepIndex(idx)}
-                    className={`p-2.5 rounded-xl border text-left transition-all cursor-pointer relative overflow-hidden flex flex-col justify-between ${
+                    className={`p-2 sm:p-2.5 rounded-xl border text-left transition-all cursor-pointer relative overflow-hidden flex flex-col justify-between ${
                       isCurrent
                         ? 'bg-red-950/80 border-red-500 shadow-[0_0_15px_rgba(239,68,68,0.35)] ring-1 ring-red-500'
                         : isPast
@@ -363,9 +363,9 @@ export const ProgressionPlayAlongView: React.FC<ProgressionPlayAlongViewProps> =
                         {stepMeta?.degreeLabel}
                       </span>
                     </div>
-                    <div className="text-lg font-bold font-mono text-white leading-tight">
+                    <div className="text-base sm:text-lg font-bold font-mono text-white leading-tight">
                       {chord.rootName}
-                      <span className="text-red-400 text-sm ml-0.5">
+                      <span className="text-red-400 text-xs sm:text-sm ml-0.5">
                         {chord.symbol || chord.typeName}
                       </span>
                     </div>
@@ -376,9 +376,9 @@ export const ProgressionPlayAlongView: React.FC<ProgressionPlayAlongViewProps> =
           </div>
 
           {/* Feedback or Next button */}
-          <div className="mt-2 pt-2 border-t border-white/5 flex items-center justify-between">
+          <div className="mt-2 pt-2 border-t border-white/5 flex flex-wrap items-center justify-between gap-2">
             {isMatched ? (
-              <div className="flex items-center gap-2 px-3 py-1 rounded-xl bg-red-500/20 border border-red-500/50 text-red-300 font-bold text-xs shadow-[0_0_12px_rgba(239,68,68,0.3)] animate-bounce-short">
+              <div className="flex items-center gap-1.5 px-3 py-1 rounded-xl bg-red-500/20 border border-red-500/50 text-red-300 font-bold text-xs shadow-[0_0_12px_rgba(239,68,68,0.3)] animate-bounce-short">
                 <Sparkles className="w-3.5 h-3.5 text-red-400" />
                 <span>MATCH! 次の小節へ進みます</span>
               </div>
@@ -399,7 +399,7 @@ export const ProgressionPlayAlongView: React.FC<ProgressionPlayAlongViewProps> =
         </div>
 
         {/* Right: Staff Notation */}
-        <div className="lg:col-span-6 flex flex-col justify-center">
+        <div className="lg:col-span-6 flex flex-col justify-center min-h-[140px]">
           <StaffNotation
             targetChord={activeStepChord}
             activeMidiNotes={activeMidiNotes}
