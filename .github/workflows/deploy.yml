@@ -41,7 +41,10 @@ jobs:
         uses: actions/configure-pages@v4
 
       - name: Build application
-        run: npm run build
+        run: |
+          npm run build
+          touch dist/.nojekyll
+          cp dist/index.html dist/404.html
         env:
           NODE_ENV: production
           BASE_PATH: ${{ steps.pages.outputs.base_path }}
